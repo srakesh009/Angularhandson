@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<!--<script src= "js/angular.min.js"></script>-->
+
+<script src= "../js/angular.min.js"></script>
+<script src= "SampleApp.js"></script>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl"> 
+
+<form>
+<label>Name</label>
+        <input name="name" ng-model="newcontact.name" type="text"></br>
+    <label>Email</label>
+        <input name="email" ng-model="newcontact.email" type="text"><br>
+    <label>Phone</label>
+        <input name="phone" ng-model="newcontact.phone" type="text"><br>
+        <br>
+        <input ng-model="newcontact.id" type="hidden">
+     <input value="Save" ng-click="saveContact()" type="button">
+    </form>
+<table>
+<thead>
+<tr>
+    <th>Name</th>
+    <th></th>
+    <th>Phone</th>
+    <th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="contact in contacts">
+    <td>{{ contact.name }}</td>
+    <td>{{ contact.email }}</td>
+    <td>{{ contact.phone }}</td>
+    <td>
+        <a href="" ng-click="edit(contact.id)">edit</a> |
+        <a href="" ng-click="delete(contact.id)">delete</a>
+    </td>
+ </tr>
+</tbody>
+</table>    
+</div>
+
+
+</body>
+</html>

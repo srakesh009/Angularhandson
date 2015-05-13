@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css"/>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script>
+        var app = angular.module('app', ['ngRoute']);
+        app.config(function ($routeProvider) {
+
+            // configure the routes
+            $routeProvider
+
+                    .when('/home', {
+                        // route for the home page
+                        templateUrl: 'pages/home.html',
+                        controller: 'homeController'
+                    })
+                    .when('/about', {
+                        // route for the about page
+                        templateUrl: 'pages/about.html',
+                        controller: 'aboutController'
+                    })
+                    .when('/contact/:subject', {
+                        // route for the contact page
+                        templateUrl: 'pages/contact.html',
+                        controller: 'contactController'
+                    }).
+                    otherwise(
+                    {
+                        templateUrl: 'pages/routeNotFound.html',
+                        controller: 'notFoundController'
+                    }
+            );
+
+        });
+
+        app.controller('homeController', function ($scope) {
+            $scope.message = 'Welcome to my home page!';
+        });
+
+        app.controller('aboutController', function ($scope) {
+            $scope.message = 'Find out more about me.';
+        });
+
+        app.controller('contactController', function ($scope, $routeParams) {
+
+            var subject = '';
+            if ($routeParams ['subject'] == "learn") {
+                subject = 'I want to learn more about your services';
+            } else if ($routeParams ['subject'] == "quote") {
+                subject = 'I would like to get a free quote';
+            }
+
+            $scope.subject = subject;
+        });
+
+        app.controller('notFoundController', function ($scope) {
+            $scope.message = 'There seems to be a problem finding the page you wanted';
+
+        });
+
+    </script>
+</head>
+<body ng-controller="homeController">
+
+<header>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <p class="navbar-brand">My Website</p>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#home"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="#about"><i class="fa fa-shield"></i> About</a></li>
+                <li><a href="#contact"><i class="fa fa-comment"></i> Contact</a></li>
+            </ul>
+
+        </div>
+    </nav>
+</header>
+
+<div id="main">
+    <!-- this is where content will be injected -->
+    <div ng-view></div>
+</div>
+
+</body>
+</html>
